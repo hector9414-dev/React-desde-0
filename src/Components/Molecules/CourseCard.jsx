@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
-const Curso = ({key,id,title, img, profesor, imgProfesor, price}) =>(
+const CourseCard = ({key,id,title, img, profesor, imgProfesor, price}) =>(
     
     <article className="card l-container s-pt-4">
     <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
@@ -32,7 +32,7 @@ const Curso = ({key,id,title, img, profesor, imgProfesor, price}) =>(
   
   )
 
-  Curso.propTypes ={
+  CourseCard.propTypes ={
     title : propTypes.string,
     img: propTypes.string,
     price: propTypes.string,
@@ -40,7 +40,7 @@ const Curso = ({key,id,title, img, profesor, imgProfesor, price}) =>(
     
   }
 
-  Curso.defaultProps = {
+  CourseCard.defaultProps = {
     title : "No se encontró titulo",
     img : "https://stockpictures.io/wp-content/uploads/2020/01/image-not-found-big-768x432.png",
     profesor : "",
@@ -50,4 +50,4 @@ const Curso = ({key,id,title, img, profesor, imgProfesor, price}) =>(
 
   }
 
-export default Curso
+export default CourseCard
