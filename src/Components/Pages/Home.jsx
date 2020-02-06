@@ -1,5 +1,5 @@
 import React from 'react'
-import Banner from '../Molecules/Banner'
+import Banner from '../Organisms/Banner'
 
 const Home = ()=>(
     <Banner/>

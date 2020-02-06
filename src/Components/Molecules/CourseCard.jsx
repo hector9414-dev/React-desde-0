@@ -2,9 +2,9 @@ import React from 'react'
 import propTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
-const CourseCard = ({key,id,title, img, profesor, imgProfesor, price}) =>(
+const CourseCard = ({id,title, img, profesor, imgProfesor, price}) =>(
     
-    <article className="card l-container s-pt-4">
+    <article className="card l-container">
     <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
       <Link to={`/cursos/${id}`}>
         <img src={img} alt={title}/>
@@ -25,7 +25,7 @@ const CourseCard = ({key,id,title, img, profesor, imgProfesor, price}) =>(
         </div>
       </div>
       <div className="s-main-center">
-        <a className="button--ghost-alert button--tiny" >{price}</a>
+        <div className="button--ghost-alert button--tiny" >{price}</div>
       </div>
     </div>
   </article>
