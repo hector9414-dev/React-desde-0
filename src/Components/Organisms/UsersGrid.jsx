@@ -1,6 +1,5 @@
 import React from 'react'
 import UserCard from '../Molecules/UserCard'
-import withLoader from '../HOC/withLoader'
 
 const UsersGrid = ({users})=>{
 
@@ -18,4 +17,4 @@ const UsersGrid = ({users})=>{
 
 }
 
-export default withLoader(UsersGrid, "users") 
+export default UsersGrid 

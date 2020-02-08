@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React from "react"
 import UsersGrid from '../Organisms/UsersGrid'
-import withAxios from '../HOC/withAxios'
+import { connect } from "react-redux"
 
 // // Firebase App (the core Firebase SDK) is always required and must be listed first
 // import * as firebase from "firebase/app";
@@ -26,58 +26,17 @@ import withAxios from '../HOC/withAxios'
 //   // Initialize Firebase
 //   firebase.initializeApp(firebaseConfig);
 
-class Users extends Component {
-
-    constructor(props){
-        super(props)
-
-        this.state={
-            users : []
+const Users = ({users}) => (
+    <div className="ed-grid s-grid-2 m-grid-4">
+        <h1 className="ed-grid s-cols-2 m-cols-4 center s-pt-2">Usuarios</h1>
+        {
+            <UsersGrid users = {users}/>
         }
+    </div>
+)
 
-    }
+const mapStateProps = state =>({
+    users: state.userReducer.users
+})
 
-    // async componentDidMount(){
-
-    //     // const response = await fetch("https://jsonplaceholder.typicode.com/users")
-    //     // const r = await response.json()
-    // }
-
-    //     // Logueo y obtener informacion del usuario logueado del servidor con Firebase
-    //     // const response = await firebase.auth().signInWithEmailAndPassword("hector_okmpo@hotmail.com", "Cuervo94148*")
-    //     // var loggedUser = await firebase.auth().currentUser;
-    //     // var user = {
-    //     //     id: loggedUser.uid,
-    //     //     name: loggedUser.displayName,
-    //     //     email: loggedUser.email,
-    //     //     photo: loggedUser.photoURL
-    //     // }
-    //     // this.setState({
-    //     //     users: user
-    //     // })
-
-        
-    // }
-
-    render(){
-
-        const { users } = this.state
-
-        return (
-            <div className="ed-grid s-grid-2 m-grid-4">
-                <h1 className="ed-grid s-cols-2 m-cols-4 center s-pt-2">Usuarios</h1>
-                  {
-                    <UsersGrid users = {users}/>
-                  }
-            </div>
-        )
-    }
-
-    async componentDidMount(){
-        this.setState({
-            users : await this.props.ajaxRequest()
-        })
-    }
-}
-
-export default withAxios(Users, "https://jsonplaceholder.typicode.com/users") 
+export default connect(mapStateProps,{})(Users)

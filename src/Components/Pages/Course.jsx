@@ -1,56 +1,68 @@
-import React from 'react'
+import React, {useState} from 'react'
+import propTypes from 'prop-types'
+import { connect } from 'react-redux'
 
+const Course = ({match, course}) => {
 
-const cursos = [
-    {
-      "id"       : 1,
-      "title"     : "React desde cero",
-      "img"       : "https://drupal.ed.team/sites/default/files/styles/16_9_medium/public/imagenes-cdn-edteam/2019-04/React%20desde%20cero%20%281%29.png",
-      "price"     : "30 USD",
-      "profesor"  : "Beto Quiroga"
-    
-      },
-    {
-      "id"       : 2,
-      "title"     : "HTML desde cero",
-      "img"       : "https://drupal.ed.team/sites/default/files/styles/medium/public/courses/images/HTML-2018.jpg?itok=Gyvm-W9t",
-      "price"     : "20 USD",
-      "profesor"  : "Beto Quiroga"
-      },
-    {
-      "id"       : 3,
-      "title"     : "CSS desde cero",
-      "img"       : "https://drupal.ed.team/sites/default/files/styles/medium/public/courses/images/css-poster_1.jpg?itok=VUK9BKuY",
-      "price"     : "50 USD",
-      "profesor"  : "Beto Quiroga"
-      },
-    {
-      "id"       : 4,
-      "title"     : "JS desde cero",
-      "img"       : "https://drupal.ed.team/sites/default/files/styles/medium/public/courses/images/javascript_0.jpg?itok=aKHihrP0",
-      "price"     : "40 USD",
-      "profesor"  : "Beto Quiroga"
-      }]
+  let [comment, setComment]= useState([])
+  let curso = []
+  const c = course.filter(c => c.id == match.params.id)
+  c.map(e => curso = e)
+  const {title, img, profesor} = curso
+  
+  const myComment = e =>{
+    e.preventDefault()
+    setComment(
+      comment= [e.target.commentBox.value,...comment]
+    )
+    e.target.commentBox.value=""
+  }
 
-const Course = ({match}) => {
-
-     const CursoActual = cursos.filter( c => c.id === parseInt(match.params.id))[0]
-
-    return (
-        CursoActual ?
-            (
+  return (
+      curso
+      ?
+        (
+          <div className="l-block">
             <div className="ed-grid m-grid-3">
-                <h1 className="m-cols-3">{CursoActual.title}</h1>
-                <img src={CursoActual.img} alt="img" className="m-cols-1"/>
-                <p className="m-cols-2">{CursoActual.profesor}</p>
+                <h1 className="m-cols-3">{title}</h1>
+                <img src={img} alt="" className="m-cols-1 s-mb-3"/>
+                <p className="m-cols-2">{profesor}</p>
             </div>
-            )
-        :
-            (
-                <h1>Curso no Existe</h1>
-            )
-
+            <div className="ed-grid m-grid-3">
+              <h2 className="m-cols-3">Escribe tu comentario</h2>
+              <form onSubmit={myComment.bind(this)} className="m-cols-2 m-mb-2 m-mt-1"  >
+              <input id="commentBox" type="text" placeholder="Escribe algo..." />
+              </form>
+              <div className="ed-grid m-cols-3 small">{comment.map(c => <div>{c}</div>)}</div>
+            </div>
+          </div>
+          )
+      :
+        (
+          <h1>Curso no Existe</h1>
         )
-    }
+    )
+  }
 
-export default Course
+Course.propTypes ={
+  title : propTypes.string,
+  img: propTypes.string,
+  price: propTypes.number,
+  profesor: propTypes.string,
+  
+}
+
+Course.defaultProps = {
+  title : "No se encontró titulo",
+  img : "https://stockpictures.io/wp-content/uploads/2020/01/image-not-found-big-768x432.png",
+  profesor : "",
+  imgProfesor: "",
+
+}
+
+const mapStateToPros = state=>({
+  course: state.courseReducer.courses
+})
+
+export default connect(mapStateToPros,{})(Course)
+
